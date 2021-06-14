@@ -1,3 +1,238 @@
-h1{
-    color: red;
+.body-picture{
+    background-color:rgb(3, 21, 29);
+    margin: none;
+    padding: none;
+    min-height: 100vh;
+    width:100%;
+    height:100%;
+    overflow: hidden;
+    }
+.end-picture{
+    background-color:rgb(3, 21, 29);
+    height: 100px;
+}
+.navbarContainer-picture{
+    /* background-color: #ffffff1f; */
+    padding-top: 10px;
+    width: 100%;
+    height: 6rem;
+    margin-left: 50%;
+    transform: translate(-50%);
+}
+.container-picture{
+    /* background-color: rgb(138, 9, 138); */
+    width: 80%;
+    height: auto;
+    /* height: 100vh; */
+    margin-left: 50%;  
+    transform: translate(-50%);
+    padding-top: 80px;
+}
+.container-suggestions-picture{
+    background-color: transparent;
+    height: 4rem;
+    margin-bottom: 2rem;
+}
+.suggestions-center{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+.btn-suggestions{
+    padding: 5px;
+    margin-right: 10px;
+    width: 15%;
+    height: 50%;
+    border-radius: 15px;
+    background-color: rgba(0, 255, 255, 0.541);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    transition: .1s ease-in-out;
+}
+.btn-suggestions:hover{
+    transform: scale(.95);
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------ */
+.grid-header-picture{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-areas: "back logo logo search";
+    width: 100%;
+    height: 100%;
+}
+.btn-back-picture{
+    grid-area: back;
+    /* background-color: turquoise; */
+}
+.logo-picture{
+    grid-area: logo;
+    /* background-color: rgb(255, 71, 224); */
+}
+.search-picture{
+    grid-area: search;
+}
+.buscador-picture{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    /* background-color: violet; */
+    justify-content: flex-end;
+    align-items: center;    
+
+}
+.center-picture{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;     
+}
+.logosvg-picture{
+    width: 190px;
+    cursor: pointer;   
+    /* background-color: violet; */
+    transition: .1s ease-in-out;
+}
+
+.logosvg-picture:hover{
+    transform: scale(.9) rotate(3deg) translateY(8px);
+}
+
+
+.btn-home-picture{
+    width: 35px;
+    height: 30px;
+    cursor: pointer;
+    margin-Left:10px;
+    opacity: .8;
+    transition: .2s ease-in-out;   
+}
+.btn-home-picture:hover{
+    transform: scale(.9);
+    opacity: 1;
+}
+.container-grid-picture{
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    grid-auto-rows: 100px 300px;
+    gap: 10px;
+    grid-auto-flow: dense;
+}
+.btn-up{
+    position: fixed;
+    margin: 20px;
+    bottom: 1%;
+    right: 1%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(0, 185, 185, 0.479);
+    box-shadow: 1px 1px 12px 2px rgba(0, 0, 0, 0.479);
+    cursor: pointer;
+    color: white;
+    transition: .1s ease-in-out;
+    z-index: 30;
+}
+.btn-up:hover{
+    background-color: rgba(0, 185, 185, 0.685);
+    box-shadow: 1px 1px 12px 1px rgba(0, 0, 0, 0.479);
+    transform: scale(.9);
+}
+.center-spinner{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.spinner {
+    display: none;
+    width: 30px;
+    height: 30px;
+    margin: 100px auto;
+    background-color: rgb(200, 200, 200);
+  
+    border-radius: 100%;  
+    -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+    animation: sk-scaleout 1.0s infinite ease-in-out;
+  }
+  .spinner.show{
+      display: flex;
+  }
+  .up{
+      pointer-events: none;
+  }
+  
+  @-webkit-keyframes sk-scaleout {
+    0% { -webkit-transform: scale(0) }
+    100% {
+      -webkit-transform: scale(1.0);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes sk-scaleout {
+    0% { 
+      -webkit-transform: scale(0);
+      transform: scale(0);
+    } 100% {
+      -webkit-transform: scale(1.0);
+      transform: scale(1.0);
+      opacity: 0;
+    }
+  }
+
+
+/* -----------------Maximo (phone)-------------------------------------------------------------------------------------------- */
+@media (max-width:850px){
+/* @media screen and (max-width:500px){ */
+
+.container-picture{
+    width: 95%;
+}
+.container-grid-picture{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-auto-rows: 150px 200px;
+}
+
+.grid-header-picture{
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:    "back search search search"
+                            "logo logo logo logo";
+}
+.btn-home-picture{
+    width: 25px;
+}
+.logosvg-picture{
+    width: 150px;
+    margin-top: 40px;
+}
+.btn-suggestions{
+    width: 25%;
+    font-size: .9rem;
+}
+
+}
+
+/* @media screen and (min-width: 900px) {
+    .grid-header-picture{
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-areas: "back logo logo logo search search";
+        
+    }
+} */
+
+
+/* -------------------Minimo  (pantallas grandes)------------------------------------------------------------------------------------------ */
+@media (min-width:1825px){
+    .container-picture{
+        width: 1344px;
+    }
 }

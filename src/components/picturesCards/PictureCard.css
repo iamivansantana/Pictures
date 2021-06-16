@@ -108,5 +108,9 @@
 .ver-picture{
     width: 30px; ;
 }
+.gallery-item-picture{
+   border-radius: 10px;
+   overflow: hidden;
+}
 
 }

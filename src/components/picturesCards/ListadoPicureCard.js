@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PictureCard from './PictureCard';
+import modalContext from '../../context/modalContext/modalContext';
 
 const ListadoPicureCard = ({imagenes}) => {
+    
+    const {setIsOpen} = useContext(modalContext);
+    
+
 
     let contador = 0;
 
@@ -22,8 +27,9 @@ const ListadoPicureCard = ({imagenes}) => {
             {myImages.map((imagen,i)=>(
                 
                 <PictureCard
-                    key={imagen.id+i}
-                    imagen={imagen}
+                    key={ imagen.id+i }
+                    imagen={ imagen }
+                    setIsOpen={ setIsOpen }
                 />
 
             ))}

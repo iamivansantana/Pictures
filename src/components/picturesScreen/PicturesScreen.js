@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import modalContext from '../../context/modalContext/modalContext';
+import Modal from '../modal/Modal';
 import ListadoPicureCard from '../picturesCards/ListadoPicureCard';
 import SearchBar from '../searchBar/SearchBar';
 import './PicturesScreen.css';
@@ -12,6 +14,10 @@ const PicturesScreen = () => {
     const[paginaactual,guardarPaginaActual]=useState(1);
     const[totalpaginas,guardaTotalPaginas]=useState(1);
     const[imagenesxpagina,setImagenesxpagina]=useState(16);
+
+    const {isOpen, setIsOpen} = useContext(modalContext);
+
+    
     
 
     useEffect(() => {
@@ -38,39 +44,31 @@ const PicturesScreen = () => {
     }, [paginaactual,busqueda]);
     
 
-    
+    //Function for make Infinite scroll.
     useEffect(() => {
-
 
         const spinner = document.querySelector('.spinner');
 
         function ventana (e){
-            let {scrollTop,clientHeight, scrollHeight}= document.documentElement;
-           
-            console.log(scrollTop,clientHeight,scrollHeight);
 
+            let {scrollTop,clientHeight, scrollHeight}= document.documentElement;
+            console.log(scrollTop,clientHeight,scrollHeight);
 
             // if(scrollHeight<=1843)return;
             if (56+scrollTop+clientHeight>=scrollHeight-1) {
             
-                // setFin(true)
                 console.log('fin');
                 const nuevaPaginaSiguiente = paginaactual + 1;
-                //setImagenesxpagina( imagenesxpagina+16);
+                
                 if(nuevaPaginaSiguiente > totalpaginas)return;
                 
                 spinner.classList.add('show')
 
                 setTimeout(() => {
                     guardarPaginaActual(nuevaPaginaSiguiente);
-                    
-                    //Enviar tema de busqueda hacia el componente principal
-                    
                     spinner.classList.remove('show');
                 }, 600);
             }
-            
-              
         }   
         
          window.addEventListener("scroll",ventana);
@@ -81,7 +79,7 @@ const PicturesScreen = () => {
             window.removeEventListener("scroll",ventana);
         }
         
-    })
+    });
     
     const up = () =>{
         //Mover Pantalla Hacia arriba
@@ -99,9 +97,8 @@ const PicturesScreen = () => {
         guardarPaginaActual(1);
     }
     
-    //METODO PARA OBSERVAR INTERSECCIONES DE ELEMENTOS HTML EN LA PANTALLA.
+    // //METODO PARA OBSERVAR INTERSECCIONES DE ELEMENTOS HTML EN LA PANTALLA.
     // useEffect(() => {
-    //     // if (imagenes===[]) return;
         
     //     const body = document.querySelector('.body-picture');
     //     const end = document.querySelector('.end-picture');   
@@ -118,17 +115,14 @@ const PicturesScreen = () => {
     //         entries.forEach(entry=>{
     //             if(!entry.isIntersecting){
     //                 const border = ` none`;         
-    //                 //Se asignan las constantes al style de la caja (color y sombra). 
+    //                 //Se elimina el style al del body (border). 
     //                 body.style.border = border;
                     
     //             }else{
     //                 console.log('fin');
     //                 const border = ` 2.5px solid red`;         
-    //                 //Se asignan las constantes al style de la caja (color y sombra). 
+    //                  //Se asignan el string al style del body (border). 
     //                 body.style.border = border;
-
-    //                 guardarPaginaActual(paginaactual+1);
-                    
     //             }
     //         });
     //     },secctionOneOptions);
@@ -142,6 +136,12 @@ const PicturesScreen = () => {
     return (
         <>
             <div className="body-picture">
+                <div style={BUTTON_WRAPPER_STYLES} >
+                    <Modal open={isOpen} onClose={()=>setIsOpen(false)}>
+                        Example modal
+                    </Modal>
+                </div>
+                
                 <div onClick={up} className="btn-up">
                     <span className="center-picture up">Up</span>
                 </div>
@@ -206,9 +206,15 @@ const PicturesScreen = () => {
                     <div className="spinner show"></div>
                 </div>
             </div>
+
                               
         </>
     )
 }
 
 export default PicturesScreen
+
+const BUTTON_WRAPPER_STYLES = {
+    position: 'relative',
+    zIndex: 1
+}

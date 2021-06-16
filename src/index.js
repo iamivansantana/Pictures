@@ -2,12 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // import App from './App';
-import PicturesScreen from './components/picturesScreen/PicturesScreen';
+
+import Pictures from './routes/Pictures';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <PicturesScreen />
+    
+      <Pictures />
+    
   </React.StrictMode>,
   document.getElementById('root')
 );

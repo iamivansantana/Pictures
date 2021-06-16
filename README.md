@@ -12,7 +12,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
 ## Description:  
-    Pictures es un proyecto que puedes utilizar para obtener una galeria de imagenes con licencia de uso libre, que utiliza como motor de busqueda la API de Pixaby. El proyecto fue desarrollado haciendo uso de diferentes hooks, funciones y herramientas como las siguientes:  
+    Pictures es un proyecto que puedes utilizar para obtener una galeria de imagenes con licencia  
+    de uso libre, que utiliza como motor de busqueda la API de Pixaby.  
+    El proyecto fue desarrollado haciendo uso de diferentes hooks, funciones y herramientas como las siguientes:  
     * useContext  
     * useEffect  
     * useState  
@@ -24,7 +26,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
     * Responsive Desing  
 
 ## Description:
-     Pictures is a project that you can use to obtain an image gallery with a free use license, which uses the Pixaby API as a search engine. The project was developed using different hooks, functions and tools such as the following:
+     Pictures is a project that you can use to obtain an image gallery with a free use license,  
+     which uses the Pixaby API as a search engine.  
+     The project was developed using different hooks, functions and tools such as the following:
      * useContext
      * useEffect
      * useState

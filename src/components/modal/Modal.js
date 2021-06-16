@@ -1,37 +1,23 @@
 import React from 'react';
 import ReactDOM  from 'react-dom'; 
+import '../modal/ModalScreen.css'
 
-const MODAL_STYLES ={
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%,-50%)',
-    backgroundColor: '#FFF',
-    padding: '50px',
-    zIndex:    1000
-}
-const OVERLAY_STYLES={
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0,0,0, .7)',
-    zIndex: 1000
-}
 
 export default function Modal({ open, children, onClose }) {
 
+    //Si ventana modal no esta avierta retornar null.
     if (!open) return null;
 
+    // ReactDOM.createPortal para crear portal para Modal. 
     return ReactDOM.createPortal(
         <>
-            <div style={OVERLAY_STYLES} onClick={onClose}/>
-            <div style={MODAL_STYLES}>
-                <button onClick={onClose}>Close Modal</button>
+            <div className="OVERLAY_STYLES" onClick={onClose}/>
+            <div className="MODAL_STYLES">
+                {/* <button onClick={onClose}>Close Modal</button> */}
                 {children}
             </div>
         </>,
+        // Referencia al id del portal en el html.
         document.getElementById('portal')
     )
 }

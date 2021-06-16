@@ -3,34 +3,42 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import modalContext from '../../context/modalContext/modalContext';
 import Modal from '../modal/Modal';
+import ModalScreen from '../modal/ModalScreen';
 import ListadoPicureCard from '../picturesCards/ListadoPicureCard';
 import SearchBar from '../searchBar/SearchBar';
 import './PicturesScreen.css';
 
 const PicturesScreen = () => {
 
+    //State que guatda las busquedas
     const[busqueda,guardarBusqueda]=useState('Colors');
+    //State que guarda el arreglo de imagenes obtenidas por la API
     const[imagenes,guardarImagenes]=useState([]);
+    //State que guarda la pagina en la que estamos del resultado de la API
     const[paginaactual,guardarPaginaActual]=useState(1);
+    //State que guarda el total de paginas del resultado de la API
     const[totalpaginas,guardaTotalPaginas]=useState(1);
+    //State que indica cuantas imagenes agregar por pagina
     const[imagenesxpagina,setImagenesxpagina]=useState(16);
-
-    const {isOpen, setIsOpen} = useContext(modalContext);
-
     
-    
+    //Context de las funciones de la ventana Modal
+    const {isOpen, setIsOpen,imagenModal} = useContext(modalContext);    
 
+
+    //useEffect para consultar la api cada que paginaActual o busqueda Cambian.
     useEffect(() => {
-
+        //Si la busqueda esta vacia no se ejecuta la consulta
         if(busqueda==='')return;
         
         const consultarAPI = async()=>{
 
-            const key= '18584834-b8939c3a0661f41d9c3094cbd';
+            //Para obtener tu key registrate en la pagina de pixabay.com
+            const key= 'AQUI VA TU PROPIA KEY';
             const url=`https://pixabay.com/api/?key=${key}&q=${busqueda}&per_page=${imagenesxpagina}&page=${paginaactual}`;
     
             const respuesta = await fetch(url);
             const resultado = await respuesta.json();
+            //se utiliza array.concat() para agregar las imagenes de la nueva pagina a las anteriores.
             const newResultado = imagenes.concat(resultado.hits);        
     
             guardarImagenes(newResultado);
@@ -51,36 +59,47 @@ const PicturesScreen = () => {
 
         function ventana (e){
 
+            //Obtiene el alto de la pagina, alto de la barra, y el scroll recorrido 
             let {scrollTop,clientHeight, scrollHeight}= document.documentElement;
-            console.log(scrollTop,clientHeight,scrollHeight);
+            // console.log(scrollTop,clientHeight,scrollHeight);
 
-            // if(scrollHeight<=1843)return;
+            //Condicion para InfiniteScroll
+                //En moviles algunos navegadores agregan 56px que agregamos a la suma de (scrollTop + clienteHeight)
+                //se resta 1 a scrollHeight para evitar conflicto con decimales.
             if (56+scrollTop+clientHeight>=scrollHeight-1) {
             
-                console.log('fin');
+                // console.log('fin');
+
+                //Si la condicion se cumple Se pasa a la pagina siguiente
                 const nuevaPaginaSiguiente = paginaactual + 1;
                 
+                //Return si se terminana las paginas
                 if(nuevaPaginaSiguiente > totalpaginas)return;
                 
+                //Spinner para simular carga
                 spinner.classList.add('show')
 
                 setTimeout(() => {
+                    //Se agrega la pagina siguiente a la acual.
                     guardarPaginaActual(nuevaPaginaSiguiente);
                     spinner.classList.remove('show');
                 }, 600);
             }
         }   
         
+        //Se agrega la funcion ventana al evento scroll.
          window.addEventListener("scroll",ventana);
         
         
         // Devolvemos una función para anular la suscripción al evento
+            // y evitar que cada pagina nueva se dupliquen resultados.
         return () => {
             window.removeEventListener("scroll",ventana);
         }
         
     });
     
+    //Funcion para boton Up
     const up = () =>{
         //Mover Pantalla Hacia arriba
         const jumbotron = document.querySelector('.jumbotronn');
@@ -89,7 +108,7 @@ const PicturesScreen = () => {
     }
 
     
-        
+     //Funcion para botones de sugerencias.   
     const suggestion = (name)=>{
         if (name === busqueda)return
         guardarImagenes([]);
@@ -132,13 +151,16 @@ const PicturesScreen = () => {
     // },[]);
 
 
-
     return (
         <>
             <div className="body-picture">
                 <div style={BUTTON_WRAPPER_STYLES} >
                     <Modal open={isOpen} onClose={()=>setIsOpen(false)}>
-                        Example modal
+                        {(imagenModal)? 
+                            <ModalScreen 
+                                largeImageURL={ imagenModal.largeImageURL }
+                                tags={ imagenModal.tags }
+                            />  :null}
                     </Modal>
                 </div>
                 
@@ -153,7 +175,7 @@ const PicturesScreen = () => {
                                     <img src="assets\picturesAssets\home1-light.svg" alt="home" className="btn-home-picture"/>
                                 </div>
                             </div>
-                                <div className="logo-picture">
+                                <div className="logo-picture" >
                                     <div className="center-picture">
                                             <div >
                                                 <img src="assets\picturesAssets\Pictures-withe.svg" alt="logo" className="logosvg-picture"/>
@@ -166,6 +188,7 @@ const PicturesScreen = () => {
                                         guardarBusqueda={guardarBusqueda}
                                         setImagenesxpagina={setImagenesxpagina}
                                         guardarImagenes={guardarImagenes}
+                                        busqueda={ busqueda }
                                     />
                                 </div>
                             </div>
